@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noor ELT Programmes</title>
+<style>
+   /* --- Evolved Warmth Redesign v4.0 (Final Emphasis) --- */
+
+
+   /* 1. ROOT PALETTE & FONT */
+   :root {
+     --bg-page-start: #F9F6F2;
+     --bg-page-end: #EFEAE4;
+     --text-main: #5D4037;
+     --accent: #D4A96A;
+     --accent-hover: #E1B87E;
+     --text-on-accent: #FFFFFF;
+     --shadow-color: rgba(93, 64, 55, 0.12);
+     --accent-shadow-color: rgba(212, 169, 106, 0.35);
+     --accent-shadow-hover: rgba(212, 169, 106, 0.5);
+     --slide-bg: rgba(255, 255, 255, 0.45);
+     --slide-border: rgba(255, 255, 255, 0.7);
+     --aura-color: rgba(255, 255, 255, 0.3);
+     --wave-color-1: rgba(192, 149, 82, 0.2);
+     --wave-color-2: rgba(212, 169, 106, 0.15);
+     --wave-color-3: rgba(225, 184, 126, 0.1);
+     --wave-color-4: rgba(245, 229, 201, 0.12);
+   }
+  
+   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+
+   /* 2. BASE & BODY STYLES */
+   body, html {
+       margin: 0;
+       padding: 0;
+       width: 100%;
+       height: 100%;
+       font-family: 'Poppins', 'Century Gothic', sans-serif;
+       color: var(--text-main);
+       background: linear-gradient(135deg, var(--bg-page-start), var(--bg-page-end));
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       overflow: hidden;
+   }
+
+
+   /* 3. MAIN LAYOUT & BACKGROUND LAYERS */
+   .main-container {
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       justify-content: flex-start;
+       width: 100%;
+       height: 100%;
+       position: relative;
+       isolation: isolate;
+       padding: 20px 0;
+       box-sizing: border-box;
+   }
+
+
+   .background-aura {
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       width: 60vmin;
+       height: 60vmin;
+       background: radial-gradient(circle, var(--aura-color) 0%, rgba(255,255,255,0) 70%);
+       transform: translate(-50%, -50%);
+       z-index: -2;
+       animation: aura-breathe 8s ease-in-out infinite;
+   }
+
+
+   @keyframes aura-breathe {
+       0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+       50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+       100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+   }
+
+
+   .background-pattern {
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       width: 90vh;
+       height: 90vh;
+       max-width: 900px;
+       max-height: 900px;
+       transform: translate(-50%, -50%);
+       z-index: -3;
+       opacity: 0.6;
+       animation: slow-rotate 180s linear infinite;
+   }
+
+
+   @keyframes slow-rotate {
+       from { transform: translate(-50%, -50%) rotate(0deg); }
+       to { transform: translate(-50%, -50%) rotate(360deg); }
+   }
+
+
+   /* 4. SLIDESHOW & SOFT CARD EFFECT */
+   .slideshow-container {
+       width: 100%;
+       flex-grow: 1;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       position: relative;
+   }
+
+
+   .slide {
+       display: none;
+       flex-direction: column;
+       width: 85%;
+       max-width: 900px;
+       justify-content: center;
+       align-items: center;
+       text-align: center;
+       position: absolute;
+       opacity: 0;
+       transition: opacity 0.8s ease-in-out;
+       background: var(--slide-bg);
+       border: 1px solid var(--slide-border);
+       border-radius: 25px;
+       padding: 2.5rem;
+       box-shadow: 0 12px 40px var(--shadow-color);
+   }
+  
+   .slide.active {
+       display: flex;
+       opacity: 1;
+   }
+
+
+   .slide.slide-image-only {
+       background: transparent;
+       border: none;
+       box-shadow: none;
+       padding: 0;
+   }
+
+
+   .slide-content-image {
+       max-width: 100%;
+       height: auto;
+       max-height: 65vh;
+       border-radius: 15px;
+       display: block;
+       margin: 0 auto;
+       opacity: 0;
+   }
+
+
+   /* 5. TYPOGRAPHY & ANIMATION */
+   .slide p, .slide li, .slide a {
+       font-size: clamp(1.8rem, 4vw, 2.3rem);
+       font-weight: 300;
+       line-height: 1.5;
+       margin: 0 0 1rem 0;
+       opacity: 0;
+       color: var(--text-main);
+   }
+  
+   .slide a.cta-button {
+       font-size: clamp(1.4rem, 3vw, 1.6rem);
+   }
+
+
+   .slide .accent-text, .slide li strong {
+       font-weight: 700;
+       color: var(--accent);
+   }
+  
+   @media (prefers-reduced-motion: no-preference) {
+       .active .line-reveal {
+           animation: fadeIn-slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+       }
+       .active.slide-image-only .slide-content-image {
+           animation: fadeInImage 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+       }
+   }
+
+
+   @keyframes fadeIn-slideUp {
+       from { opacity: 0; transform: translateY(30px); }
+       to { opacity: 1; transform: translateY(0); }
+   }
+  
+   @keyframes fadeInImage {
+       from { opacity: 0; transform: scale(0.97); }
+       to { opacity: 1; transform: scale(1); }
+   }
+  
+   .active .line-reveal:nth-child(2) { animation-delay: 0.2s; }
+   .active .line-reveal:nth-child(3) { animation-delay: 0.4s; }
+   .active .line-reveal:nth-child(4) { animation-delay: 0.6s; }
+
+
+   .bullet-list {
+       list-style: none;
+       padding: 0;
+       margin: 0;
+       text-align: left;
+       width: 100%;
+       max-width: 700px;
+   }
+   .bullet-list li {
+       position: relative;
+       padding-left: 1.2em;
+   }
+
+
+   .bullet-list li::before {
+       content: '·';
+       font-weight: 700;
+       color: var(--accent);
+       position: absolute;
+       left: 0;
+       top: 0;
+       font-size: 1.5em;
+       line-height: 1;
+   }
+
+
+   /* 6. BUTTONS & UI */
+   .nav-button {
+       position: absolute;
+       top: 50%;
+       transform: translateY(-50%);
+       background: transparent;
+       color: var(--text-main);
+       opacity: 0.35;
+       border: none;
+       font-size: 3.5rem;
+       cursor: pointer;
+       z-index: 1001;
+       transition: opacity 0.3s ease, transform 0.3s ease;
+       padding: 0 30px;
+       text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+       animation: pulse-arrow 3s infinite ease-in-out;
+   }
+
+
+   @keyframes pulse-arrow {
+       0%, 100% { transform: translateY(-50%) scale(1); }
+       50% { transform: translateY(-50%) scale(1.08); }
+   }
+  
+   .nav-button:hover {
+       opacity: 0.7;
+       animation-play-state: paused;
+       transform: translateY(-50%) scale(1.1);
+   }
+
+
+   .nav-button.hidden { display: none; }
+   .prev { left: -20px; }
+   .next { right: -20px; }
+  
+   .cta-button {
+       background-color: var(--accent);
+       color: var(--text-on-accent);
+       padding: 16px 32px;
+       border-radius: 50px;
+       text-decoration: none;
+       font-weight: 500;
+       display: inline-block;
+       box-shadow: 0 4px 15px var(--accent-shadow-color);
+       transition: all 0.3s ease;
+       margin-top: 20px;
+   }
+
+
+   .cta-button:hover {
+       background-color: var(--accent-hover);
+       transform: translateY(-3px) scale(1.05);
+       box-shadow: 0 6px 20px var(--accent-shadow-hover);
+   }
+
+
+   /* 7. LOGO */
+   .logo-container {
+       width: 100%;
+       flex-shrink: 0;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       margin-bottom: 3vh;
+   }
+  
+   .logo-container img {
+       max-height: 90px;
+       width: auto;
+       opacity: 0.85;
+   }
+
+
+   /* 8. BACKGROUND WAVE ANIMATION */
+   .background-animation {
+       position: absolute;
+       bottom: 0;
+       left: 0;
+       width: 100%;
+       height: auto;
+       z-index: -1;
+       pointer-events: none;
+       opacity: 0.8;
+   }
+
+
+   .background-waves-svg { width: 100%; height: auto; }
+   .parallax > use { animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite; }
+  
+   .parallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 10s; fill: var(--wave-color-1); }
+   .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 13s; fill: var(--wave-color-2); }
+   .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 16s; fill: var(--wave-color-3); }
+   .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 23s; fill: var(--wave-color-4); }
+
+
+   @keyframes move-forever {
+       0% { transform: translate3d(-90px,0,0); }
+       100% { transform: translate3d(85px,0,0); }
+   }
+</style>
+</head>
+<body>
+
+
+<div class="main-container">
+  
+   <div class="logo-container">
+        <img src="https://raw.githubusercontent.com/mosaic-modules/images/33a8da5b3454f6ef8c55020853dc3cf803da5393/assets_task_01k07m28xhfpatb7hrwydzmdtq_1752602665_img_0.webp" alt="Noor ELT Programmes Logo" loading="lazy">
+   </div>
+
+
+   <!-- Background Layering Elements -->
+   <div class="background-aura"></div>
+   <svg class="background-pattern" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+     <defs>
+       <radialGradient id="sunburstGradient" cx="50%" cy="50%" r="50%">
+         <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.2"/>
+         <stop offset="100%" stop-color="var(--bg-page-start)" stop-opacity="0" />
+       </radialGradient>
+     </defs>
+     <circle cx="50" cy="50" r="50" fill="url(#sunburstGradient)" />
+     <g stroke="var(--accent)" stroke-width="0.1" stroke-opacity="0.25">
+       <path d="M50 0 L50 100" /> <path d="M0 50 L100 50" />
+       <path d="M14.6 14.6 L85.4 85.4" /> <path d="M14.6 85.4 L85.4 14.6" />
+       <path d="M29.3 6.7 L70.7 93.3" /> <path d="M6.7 29.3 L93.3 70.7" />
+       <path d="M6.7 70.7 L93.3 29.3" /> <path d="M29.3 93.3 L70.7 6.7" />
+     </g>
+   </svg>
+  
+   <div class="slideshow-container">
+      
+       <div class="slide slide-image-only active">
+           <img class="slide-content-image" src="https://raw.githubusercontent.com/mosaic-modules/images/6807bba9008c444c27edcb3f8ea6ec6e1ed28eb2/Slide1.jpeg" alt="A quote by bell hooks: To teach in a manner that respects and cares for the souls of our students is essential if we are to provide the necessary conditions where learning can most deeply and intimately begin.">
+       </div>
+
+
+       <div class="slide">
+            <p class="line-reveal">At <span class="accent-text">Al Manar Society: Noor</span>, we deliver a range of <span class="accent-text">ELT-centred</span> online programmes,</p>
+            <p class="line-reveal">working with Palestinians across the <span class="accent-text">West Bank</span>, <span class="accent-text">Gaza</span> and <span class="accent-text">Egypt</span>.</p>
+       </div>
+
+
+       <div class="slide">
+           <p class="line-reveal">For our students, education is <span class="accent-text">life</span>,</p>
+           <p class="line-reveal">affirming <span class="accent-text">presence</span> and sustaining their <span class="accent-text">communities</span></p>
+           <p class="line-reveal">in the face of erasure.</p>
+       </div>
+
+
+       <div class="slide">
+           <p class="line-reveal">Our core aim is to develop a <span class="accent-text">life-giving</span> online curriculum</p>
+           <p class="line-reveal">grounded in <span class="accent-text">exploratory learning</span> and <span class="accent-text">decolonial praxis</span>.</p>
+       </div>
+
+
+       <div class="slide">
+           <p class="line-reveal">We centre our work on developing <span class="accent-text">capacity</span>,</p>
+           <p class="line-reveal">from building <span class="accent-text">psychological resilience</span></p>
+           <p class="line-reveal">through to <span class="accent-text">practical skills training</span>.</p>
+       </div>
+
+
+       <div class="slide">
+           <p class="line-reveal">In this way, our programmes directly serve</p>
+           <p class="line-reveal">the <span class="accent-text">immediate and long-term needs</span></p>
+           <p class="line-reveal">of the communities we engage.</p>
+       </div>
+      
+       <div class="slide">
+           <p class="line-reveal">We’re looking for volunteer</p>
+           <p class="line-reveal"><span class="accent-text">General English/IELTS teachers</span></p>
+           <p class="line-reveal">and <span class="accent-text">ELT materials designers</span></p>
+           <p class="line-reveal">who want to…</p>
+       </div>
+      
+       <div class="slide">
+           <ul class="bullet-list">
+               <li class="line-reveal">make a <strong>real and measurable difference</strong> in the lives of <strong>Palestinian students</strong></li>
+           </ul>
+       </div>
+      
+       <div class="slide">
+           <ul class="bullet-list">
+               <li class="line-reveal">gain experience in a <strong>generative</strong> educational space, where <strong>creativity</strong> and <strong>innovation</strong> are celebrated</li>
+           </ul>
+       </div>
+
+
+       <div class="slide">
+           <ul class="bullet-list">
+               <li class="line-reveal">become part of an <strong>international network of teachers</strong> brought together by a shared belief in the <strong>liberatory potential</strong> of education</li>
+           </ul>
+       </div>
+
+
+       <div class="slide">
+            <ul class="bullet-list">
+               <li class="line-reveal">participate in a <strong>grassroots educational movement</strong> rooted in <strong>sumud</strong></li>
+           </ul>
+       </div>
+      
+       <div class="slide">
+           <p class="line-reveal">If all this resonates, we’d love to</p>
+           <p class="line-reveal">welcome you to our <span class="accent-text">community</span>.</p>
+           <a class="line-reveal cta-button" href="https://docs.google.com/forms/d/e/1FAIpQLSedaFzh0Xm6pyUpd8kXudYoRUR8Pf51Tr9Ywk9ixOIBrMHHqw/viewform?usp=header" target="_blank">Apply Here</a>
+       </div>
+
+
+       <button class="nav-button prev">❮</button>
+       <button class="nav-button next">❯</button>
+   </div>
+  
+   <div class="background-animation">
+       <svg class="background-waves-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+           <defs>
+               <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+           </defs>
+           <g class="parallax">
+               <use xlink:href="#gentle-wave" x="48" y="0" />
+               <use xlink:href="#gentle-wave" x="48" y="3" />
+               <use xlink:href="#gentle-wave" x="48" y="5" />
+               <use xlink:href="#gentle-wave" x="48" y="7" />
+           </g>
+       </svg>
+   </div>
+
+
+</div>
+
+
+<script>
+   document.addEventListener('DOMContentLoaded', () => {
+       let currentSlide = 0;
+       const slides = document.querySelectorAll('.slide');
+       const prevButton = document.querySelector('.nav-button.prev');
+       const nextButton = document.querySelector('.nav-button.next');
+       const totalSlides = slides.length;
+
+
+       function showSlide(index) {
+           if (totalSlides === 0) return;
+
+
+           prevButton.classList.toggle('hidden', index === 0);
+           nextButton.classList.toggle('hidden', index === totalSlides - 1);
+
+
+           slides.forEach((slide, i) => {
+               slide.classList.toggle('active', i === index);
+           });
+       }
+
+
+       function changeSlide(direction) {
+           const newIndex = currentSlide + direction;
+           if (newIndex >= 0 && newIndex < totalSlides) {
+               currentSlide = newIndex;
+               showSlide(currentSlide);
+           }
+       }
+
+
+       if (prevButton && nextButton) {
+           prevButton.addEventListener('click', () => changeSlide(-1));
+           nextButton.addEventListener('click', () => changeSlide(1));
+       }
+      
+       document.addEventListener('keydown', (e) => {
+           if (e.key === 'ArrowRight') {
+               changeSlide(1);
+           } else if (e.key === 'ArrowLeft') {
+               changeSlide(-1);
+           }
+       });
+
+
+       showSlide(currentSlide);
+   });
+</script>
+
+
+</body>
+</html>
+
+
+
+
